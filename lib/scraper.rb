@@ -4,6 +4,15 @@ require 'pry'
 class Scraper
 
   def self.scrape_index_page(index_url)
+    html = open(index.url)
+    doc = Nokogiri::HTML(html)
+    student_cards = doc.css(".student-card a")
+    student_cards.collect do |element|
+      {:name => element.css(".stdent-name").text, 
+      :location => element.css(".student-location").text,
+      :profile_url => element.attr('href')}
+    end #do
+  end #method   
 
   end
 
@@ -12,5 +21,7 @@ class Scraper
   end
 
 end
+
+
 
 
